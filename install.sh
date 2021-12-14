@@ -72,7 +72,7 @@ cd luajit
 make && make install
 ln -sf luajit-2.1.0-beta3 /usr/local/bin/luajit
 cd ..
-apt-get install luarocks
+apt-get install luarocks -y
 
 #mkdir -p install
 #mkdir -p build
