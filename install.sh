@@ -178,3 +178,64 @@ export LUA_CPATH='$CLIB_LUA_CPATH;'\$LUA_CPATH
 EOF
 chmod +x $PREFIX/bin/torch-activate
 
+if [[ $SKIP_RC == 1 ]]; then
+  exit 0
+fi
+
+RC_FILE=0
+DEFAULT=yes
+if [[ $(echo $SHELL | grep bash) ]]; then
+    RC_FILE=$HOME/.bashrc
+elif [[ $(echo $SHELL | grep zsh) ]]; then
+    RC_FILE=$HOME/.zshrc
+else
+    echo "
+Non-standard shell $SHELL detected. You might want to
+add the following lines to your shell profile:
+. $PREFIX/bin/torch-activate
+"
+fi
+
+WRITE_PATH_TO_PROFILE=0
+if [[ $BATCH_INSTALL == 0 ]]; then
+    if [ -f "$RC_FILE" ]; then
+        echo "
+Do you want to automatically prepend the Torch install location
+to PATH and LD_LIBRARY_PATH in your $RC_FILE? (yes/no)
+[$DEFAULT] >>> "
+        read input
+        if [[ $input == "" ]]; then
+            input=$DEFAULT
+        fi
+
+        is_yes() {
+            yesses={y,Y,yes,Yes,YES}
+            if [[ $yesses =~ $1 ]]; then
+                echo 1
+            fi
+        }
+
+        if [[ $(is_yes $input) ]]; then
+            WRITE_PATH_TO_PROFILE=1
+        fi
+    fi
+else
+    if [[ "$RC_FILE" ]]; then
+        WRITE_PATH_TO_PROFILE=1
+    fi
+fi
+
+if [[ $WRITE_PATH_TO_PROFILE == 1 ]]; then
+    echo "
+. $PREFIX/bin/torch-activate" >> "$RC_FILE"
+    echo "
+. $PREFIX/bin/torch-activate" >> "$HOME"/.profile
+
+else
+    echo "
+Not updating your shell profile.
+You might want to
+add the following lines to your shell profile:
+. $PREFIX/bin/torch-activate
+"
+fi
