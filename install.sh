@@ -197,28 +197,3 @@ add the following lines to your shell profile:
 . $PREFIX/bin/torch-activate
 "
 fi
-
-WRITE_PATH_TO_PROFILE=1
-if [[ $BATCH_INSTALL == 0 ]]; then
-    if [ -f "$RC_FILE" ]; then
-        echo "
-
-
-if [[ $WRITE_PATH_TO_PROFILE == 1 ]]; then
-    echo "
-
-. $PREFIX/bin/torch-activate" >> "$RC_FILE"
-    echo "
-
-. $PREFIX/bin/torch-activate" >> "$HOME"/.profile
-
-else
-    echo "
-
-Not updating your shell profile.
-You might want to
-add the following lines to your shell profile:
-
-. $PREFIX/bin/torch-activate
-"
-fi
