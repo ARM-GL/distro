@@ -111,8 +111,8 @@ then
         && make install) && echo "FindCuda bits of CMake 3.6 installed" || exit 1
 fi
 
-setup_lua_env_cmd=$($PREFIX/bin/luarocks path)
-eval "$setup_lua_env_cmd"
+#setup_lua_env_cmd=$($PREFIX/bin/luarocks path)
+#eval "$setup_lua_env_cmd"
 
 echo "Installing common Lua packages"
 cd ${THIS_DIR}/extra/luafilesystem && luarocks make rockspecs/luafilesystem-1.6.3-1.rockspec || exit 1
