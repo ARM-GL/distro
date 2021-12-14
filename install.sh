@@ -178,22 +178,3 @@ export LUA_CPATH='$CLIB_LUA_CPATH;'\$LUA_CPATH
 EOF
 chmod +x $PREFIX/bin/torch-activate
 
-if [[ $SKIP_RC == 1 ]]; then
-  exit 0
-fi
-
-RC_FILE=0
-DEFAULT=yes
-if [[ $(echo $SHELL | grep bash) ]]; then
-    RC_FILE=$HOME/.bashrc
-elif [[ $(echo $SHELL | grep zsh) ]]; then
-    RC_FILE=$HOME/.zshrc
-else
-    echo "
-
-Non-standard shell $SHELL detected. You might want to
-add the following lines to your shell profile:
-
-. $PREFIX/bin/torch-activate
-"
-fi
