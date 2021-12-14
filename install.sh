@@ -196,20 +196,7 @@ add the following lines to your shell profile:
 "
 fi
 
-WRITE_PATH_TO_PROFILE=0
-if [[ $BATCH_INSTALL == 0 ]]; then
-    if [ -f "$RC_FILE" ]; then
-        echo "
-Do you want to automatically prepend the Torch install location
-to PATH and LD_LIBRARY_PATH in your $RC_FILE? (yes/no)
-[$DEFAULT] >>> "
-        WRITE_PATH_TO_PROFILE=1
-    fi
-else
-    if [[ "$RC_FILE" ]]; then
-        WRITE_PATH_TO_PROFILE=1
-    fi
-fi
+WRITE_PATH_TO_PROFILE=1
 
 if [[ $WRITE_PATH_TO_PROFILE == 1 ]]; then
     echo "
